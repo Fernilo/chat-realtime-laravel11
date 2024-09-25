@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ChatController;
 use Egulias\EmailValidator\Parser\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,4 +19,5 @@ Route::middleware('auth')->group(function () {
     Route::get('comments', [CommentController::class, 'comments'])->name('comments');
     Route::post('comment', [CommentController::class, 'comment'])->name('comment');
     Route::get('dashboard',[HomeController::class, 'index']);
+    Route::get('chats', [ChatController::class, 'index'])->name('chats.index');
 });

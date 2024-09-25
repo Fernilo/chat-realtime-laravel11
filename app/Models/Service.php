@@ -17,6 +17,11 @@ class Service extends Model
         'user_id'
     ];
 
+    public function comment(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     /**
      * Get the service name.
      *

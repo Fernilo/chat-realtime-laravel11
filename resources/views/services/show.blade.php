@@ -13,11 +13,14 @@
 					<img class="img-fluid mb-2" width="500" src="{{ Storage::url('instrumental.webp')}}" alt="Imagen instrumental">
 		
 					<p>{{ $service->description }}</p>
-					<a href="{{ route('comments.index', [Auth()->user()->id ,$service->id]) }}" class="btn btn-secondary btn-lg">Chat</a>
+					@if (Auth()->user()->services()->exists())
+						<a href="{{ route('chats.index', [Auth()->user()->id ,$service->id]) }}" class="btn btn-secondary btn-lg">Ver todos los chats</a>
+					@else
+						<a href="{{ route('comments.index', [Auth()->user()->id ,$service->id]) }}" class="btn btn-secondary btn-lg">Iniciar Chat</a>
+					@endif
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 @endsection
- 

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Service;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class CommentController extends Controller
 {
@@ -25,7 +26,16 @@ class CommentController extends Controller
 
     public function comments(Request $request): JsonResponse
     {
-        $comments = Comment::with('user')->where('service_id', $request->query('service_id'))->get();
+       $comments =  Comment::with(['user'])
+            ->where('service_id', $request->query('service_id'))
+            ->where(function ($query) {
+                $query->where('user_id', Auth::id())
+                    ->orWhereHas('service', function ($subQuery) {
+                        $subQuery->whereColumn('user_id', 'services.user_id');
+                    });
+            })
+            ->get();
+           
         return response()->json($comments);
     }
 
