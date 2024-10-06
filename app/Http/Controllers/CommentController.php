@@ -17,7 +17,7 @@ class CommentController extends Controller
     {
         $user = User::where('id', $idUser)->firstOrFail();
         $service = Service::where('id', $idService)->firstOrFail();
-        
+      
         return view('comments.index', [
             'user' => $user,
             'service' => $service
@@ -31,7 +31,7 @@ class CommentController extends Controller
             ->where(function ($query) {
                 $query->where('user_id', Auth::id())
                     ->orWhereHas('service', function ($subQuery) {
-                        $subQuery->whereColumn('user_id', 'services.user_id');
+                        $subQuery->whereColumn('comments.user_id', 'services.user_id');
                     });
             })
             ->get();
@@ -44,7 +44,7 @@ class CommentController extends Controller
         $comment = Comment::create([
             'user_id' => Auth::id(),
             'service_id' => $request->input('serviceId'),
-            'message' => $request->input('comment'),
+            'message' => $request->input('comment')
         ]);
 
         SendComment::dispatch($comment);

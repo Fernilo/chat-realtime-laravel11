@@ -39,7 +39,7 @@ export default {
     const serviceData = document.getElementById('main').getAttribute('data-service');
     const user = JSON.parse(userData);
     const service = JSON.parse(serviceData);
-    const webSocketChannel = `chat.${userId}`;
+    const webSocketChannel = `chat_7`;
 
     const comments = ref([]);
     const scroll = ref(null);

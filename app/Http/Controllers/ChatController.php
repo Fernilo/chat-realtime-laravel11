@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Chat;
+use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
     public function index()
     {
-        return view('chat.index');
-    }
-
-    public function startChat(Request $request)
-    {
-         // Crear un nuevo chat
-        $chat = Chat::create([
-            'created_by' => Auth::id(), // Usuario que inicia el chat
+        $chats = Chat::where('created_by_id', Auth::id())->get();
+        dd($chats);
+        return view('chat.index', [
+            'chats' => $chats
         ]);
     }
+    
 }

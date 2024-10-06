@@ -10,14 +10,14 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class GotComment implements ShouldBroadcast
+class CreateChat
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(public array $comment)
+    public function __construct()
     {
         //
     }
@@ -30,7 +30,7 @@ class GotComment implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('chat_'.$this->comment['user_id'])
+            new PrivateChannel('channel-name'),
         ];
     }
 }
