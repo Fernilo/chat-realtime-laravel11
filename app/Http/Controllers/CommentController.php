@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateChat;
 use App\Jobs\SendComment;
 use App\Models\Comment;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Service;
@@ -17,7 +18,7 @@ class CommentController extends Controller
     {
         $user = User::where('id', $idUser)->firstOrFail();
         $service = Service::where('id', $idService)->firstOrFail();
-      
+  
         return view('comments.index', [
             'user' => $user,
             'service' => $service

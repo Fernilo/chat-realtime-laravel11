@@ -23,6 +23,16 @@ class Service extends Model
     }
 
     /**
+     * Get all of the comments for the Service
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function chat(): HasMany
+    {
+        return $this->hasMany(Chat::class);
+    }
+
+    /**
      * Get the service name.
      *
      * @return Attribute
