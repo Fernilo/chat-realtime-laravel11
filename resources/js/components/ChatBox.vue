@@ -37,9 +37,9 @@ export default {
   setup(props) {
     const userData = document.getElementById('main').getAttribute('data-user');
     const serviceData = document.getElementById('main').getAttribute('data-service');
-    const user = JSON.parse(userData);
+    const user = JSON.parse(userData)
     const service = JSON.parse(serviceData);
-    const webSocketChannel = `chat_7`;
+    const webSocketChannel = `chat_${user.id}`;
 
     const comments = ref([]);
     const scroll = ref(null);

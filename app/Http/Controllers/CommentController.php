@@ -26,16 +26,13 @@ class CommentController extends Controller
     }
 
     public function comments(Request $request): JsonResponse
-    {
-       $comments =  Comment::with(['user'])
-            ->where('service_id', $request->query('service_id'))
-            ->where(function ($query) {
-                $query->where('user_id', Auth::id())
-                    ->orWhereHas('service', function ($subQuery) {
-                        $subQuery->whereColumn('comments.user_id', 'services.user_id');
-                    });
-            })
+    {dd($request);
+       $comments =  Chat::with('comments')
+            -where('created_by_id', $request)
             ->get();
+
+            // Para los usurios creadores del chat obtengo el chat que coincida con creadte_by_id y service_id a partir de ahí obtengo los commments
+            // Para los creadores del chat ya tengo el chat_id y ya recupero facilmente los comentarios
            
         return response()->json($comments);
     }

@@ -15,6 +15,7 @@ class Comment extends Model
     protected $fillable = [
         'user_id', 
         'service_id',
+        'chat_id',
         'message'
     ];
     protected $appends = ['time'];

@@ -31,6 +31,7 @@ class SendComment implements ShouldQueue
             'id' => $this->comment->id,
             'user_id' => $this->comment->user_id,
             'service_id' => $this->comment->service_id,
+            'chat_id' => $this->comment->chat_id,
             'message' => $this->comment->message,
             'created_at' => $this->comment->created_at,
         ]);
