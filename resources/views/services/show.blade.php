@@ -16,7 +16,7 @@
 					@if (Auth()->user()->services()->exists())
 						<a href="{{ route('chats.index', [Auth()->user()->id ,$service->id]) }}" class="btn btn-secondary btn-lg">Ver todos los chats</a>
 					@else
-						<a href="{{ route('comments.index', [Auth()->user()->id ,$service->id]) }}" class="btn btn-secondary btn-lg">Iniciar Chat</a>
+						<a href="{{ route('comments.index', [Auth()->user()->id ,$service->id, null]) }}" class="btn btn-secondary btn-lg">Iniciar Chat</a>
 					@endif
 				</div>
 			</div>

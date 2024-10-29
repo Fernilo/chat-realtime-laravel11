@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CreateChat;
 use App\Jobs\SendComment;
 use App\Models\Comment;
 use Illuminate\Http\JsonResponse;
@@ -10,30 +9,31 @@ use \Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Service;
-use Illuminate\Database\Query\Builder as QueryBuilder;
+use App\Models\Chat;
 
 class CommentController extends Controller
 {
-    public function index(int $idUser, int $idService)
+    public function index(int $idUser, int $idService, int $created_by_id = null)
     {
-        $user = User::where('id', $idUser)->firstOrFail();
-        $service = Service::where('id', $idService)->firstOrFail();
-  
+        $user = User::findOrFail($idUser);
+        $service = Service::findOrFail($idService);
+        $var = $created_by_id ?? $idUser;
+     
         return view('comments.index', [
             'user' => $user,
-            'service' => $service
+            'service' => $service,
+            'created_by_id' => $created_by_id ?? $idUser
         ]);
     }
 
     public function comments(Request $request): JsonResponse
-    {dd($request);
-       $comments =  Chat::with('comments')
-            -where('created_by_id', $request)
+    {
+       $comments =  Chat::where('created_by_id', $request->created_by_id)
+            ->first()
+            ->comments()
+            ->with('user')
             ->get();
-
-            // Para los usurios creadores del chat obtengo el chat que coincida con creadte_by_id y service_id a partir de ahí obtengo los commments
-            // Para los creadores del chat ya tengo el chat_id y ya recupero facilmente los comentarios
-           
+          
         return response()->json($comments);
     }
 

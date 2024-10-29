@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Chat extends Model
 {
@@ -33,6 +34,16 @@ class Chat extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by_id', 'id');
+    }
+
+    /**
+     * Get all of the comments for the Chat
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
     
 }

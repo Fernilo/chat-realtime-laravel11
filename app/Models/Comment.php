@@ -34,6 +34,16 @@ class Comment extends Model
         return $this->belongsTo(Service::class);
     }
 
+    /**
+     * Get the chat that owns the Comment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function chat(): BelongsTo
+    {
+        return $this->belongsTo(Chat::class);
+    }
+
 
     protected function time() :Attribute
     {

@@ -37,6 +37,7 @@ export default {
   setup(props) {
     const userData = document.getElementById('main').getAttribute('data-user');
     const serviceData = document.getElementById('main').getAttribute('data-service');
+    const createdBy = document.getElementById('main').getAttribute('data-created-by-id')
     const user = JSON.parse(userData)
     const service = JSON.parse(serviceData);
     const webSocketChannel = `chat_${user.id}`;
@@ -55,6 +56,7 @@ export default {
         const response = await axios.get(`${props.rootUrl}/comments`, {
           params: {
             service_id: service.id,
+            created_by_id: createdBy
           },
         });
         comments.value = response.data;
