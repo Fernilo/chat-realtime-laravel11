@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\Chat;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ServiceController extends Controller
@@ -15,9 +17,12 @@ class ServiceController extends Controller
      */
     public function show(string $slug): View
     {
-        // TODO: manejar la excepcion
+        $service = Service::where('slug', $slug)->firstOrFail();
+        $chat = Chat::where('created_by_id', Auth::id())->where('service_id', $service->id)->first();
+
         return view('services.show', [
-            'service' => Service::where('slug', $slug)->firstOrFail()
+            'service' => $service,
+            'chat' => $chat
         ]);
     }
 }

@@ -10,7 +10,7 @@
           <span ref="scroll"></span>
         </div>
         <div class="card-footer">
-          <CommentInput :root-url="rootUrl" :service-id="service.id" />
+          <CommentInput :root-url="rootUrl" :service-id="service.id" :chat-id="chat.id"/>
         </div>
       </div>
     </div>
@@ -37,9 +37,10 @@ export default {
   setup(props) {
     const userData = document.getElementById('main').getAttribute('data-user');
     const serviceData = document.getElementById('main').getAttribute('data-service');
-    const createdBy = document.getElementById('main').getAttribute('data-created-by-id')
+    const chatData = document.getElementById('main').getAttribute('data-chat')
     const user = JSON.parse(userData)
     const service = JSON.parse(serviceData);
+    const chat = JSON.parse(chatData);
     const webSocketChannel = `chat_${user.id}`;
 
     const comments = ref([]);
@@ -55,8 +56,7 @@ export default {
       try {
         const response = await axios.get(`${props.rootUrl}/comments`, {
           params: {
-            service_id: service.id,
-            created_by_id: createdBy
+            created_by_id: chat.created_by_id
           },
         });
         comments.value = response.data;
@@ -86,7 +86,8 @@ export default {
       comments,
       scroll,
       rootUrl: props.rootUrl,
-      service
+      service,
+      chat
     };
   },
 };

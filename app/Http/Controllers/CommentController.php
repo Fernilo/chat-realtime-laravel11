@@ -13,16 +13,15 @@ use App\Models\Chat;
 
 class CommentController extends Controller
 {
-    public function index(int $idUser, int $idService, int $created_by_id = null)
+    public function index(int $idUser, int $idService, Chat $chat = null)
     {
         $user = User::findOrFail($idUser);
         $service = Service::findOrFail($idService);
-        $var = $created_by_id ?? $idUser;
-     
+        
         return view('comments.index', [
             'user' => $user,
             'service' => $service,
-            'created_by_id' => $created_by_id ?? $idUser
+            'chat' => $chat,
         ]);
     }
 
@@ -42,7 +41,8 @@ class CommentController extends Controller
         $comment = Comment::create([
             'user_id' => Auth::id(),
             'service_id' => $request->input('serviceId'),
-            'message' => $request->input('comment')
+            'message' => $request->input('comment'),
+            'chat_id' => $request->input('chatId')?? null
         ]);
 
         SendComment::dispatch($comment);

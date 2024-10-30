@@ -25,6 +25,10 @@ export default {
     serviceId: {
       type: Number,
       required: true,
+    },
+    chatId: {
+      type: Number,
+      required: true,
     }
   },
   data() {
@@ -37,12 +41,11 @@ export default {
   
   },
   methods: {
-    async commentRequest(comment, serviceId) {
+    async commentRequest(comment, serviceId, chatId) {
       try {
-      
       // Axios es una librería de JavaScript que se utiliza para hacer solicitudes HTTP desde el navegador (o Node.js). 
       // Permite interactuar con APIs o servidores remotos enviando solicitudes HTTP como GET, POST, PUT, DELETE, etc., y recibir las respuestas correspondientes. //
-        await axios.post(`${this.rootUrl}/comment`, { comment, serviceId });
+        await axios.post(`${this.rootUrl}/comment`, { comment, serviceId, chatId });
       } catch (err) {
         console.error(err.comment);
       }
@@ -52,8 +55,8 @@ export default {
         alert('Por favor ingrese un comentario válido!');
         return;
       }
-     
-      this.commentRequest(this.comment, this.serviceId);
+ 
+      this.commentRequest(this.comment, this.serviceId, this.chatId);
       this.comment = '';
     },
   },
