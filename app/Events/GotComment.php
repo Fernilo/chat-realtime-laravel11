@@ -30,7 +30,7 @@ class GotComment implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('chat_'.$this->comment['user_id'])
+            new PrivateChannel('chat_'.$this->comment['chat_id'])
         ];
     }
 }

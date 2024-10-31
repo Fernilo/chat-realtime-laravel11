@@ -19,5 +19,5 @@ Route::middleware('auth')->group(function () {
     Route::get('comments', [CommentController::class, 'comments'])->name('comments');
     Route::post('comment', [CommentController::class, 'comment'])->name('comment');
     Route::get('dashboard',[HomeController::class, 'index']);
-    Route::get('chats', [ChatController::class, 'index'])->name('chats.index');
+    Route::get('chats/{userId}/{service_id}', [ChatController::class, 'index'])->name('chats.index');
 });

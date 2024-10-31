@@ -10,7 +10,7 @@
           <span ref="scroll"></span>
         </div>
         <div class="card-footer">
-          <CommentInput :root-url="rootUrl" :service-id="service.id" :chat-id="chat.id"/>
+          <CommentInput :root-url="rootUrl" :service-id="service.id" :chat-id="chat?.id || null"/>
         </div>
       </div>
     </div>
@@ -41,7 +41,12 @@ export default {
     const user = JSON.parse(userData)
     const service = JSON.parse(serviceData);
     const chat = JSON.parse(chatData);
-    const webSocketChannel = `chat_${user.id}`;
+
+    if(chat) {
+      var webSocketChannel = `chat_${chat.id}`;
+      console.log(webSocketChannel);
+    }
+
 
     const comments = ref([]);
     const scroll = ref(null);
@@ -62,7 +67,7 @@ export default {
         comments.value = response.data;
         setTimeout(scrollToBottom, 0);
       } catch (err) {
-        console.log(err.comment);
+        console.log(err);
       }
     };
 
@@ -73,7 +78,9 @@ export default {
     };
 
     onMounted(() => {
-      getComments();
+      if(chat) {
+        getComments();
+      }
       connectWebSocket();
     });
 

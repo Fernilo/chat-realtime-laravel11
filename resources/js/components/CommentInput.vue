@@ -28,7 +28,7 @@ export default {
     },
     chatId: {
       type: Number,
-      required: true,
+      required: false,
     }
   },
   data() {

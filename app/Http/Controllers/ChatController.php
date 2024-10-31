@@ -9,12 +9,13 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ChatController extends Controller
 {
-    public function index()
+    public function index(int $idUser,int $serviceId)
     {
-        $idUser = Auth::id();
-        $chats = Chat::with('user')->whereHas('service', function (Builder $query) use ($idUser) {
-            $query->where('user_id', $idUser);
-        })->get();
+        $chats = Chat::with('user')
+            ->where('service_id', $serviceId)
+            ->whereHas('service', function (Builder $query) use ($idUser) {
+                $query->where('user_id', $idUser);
+            })->get();
        
         return view('chat.index', [
             'chats' => $chats

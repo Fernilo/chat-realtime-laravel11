@@ -1,9 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
-use App\Models\User;
 
-
-Broadcast::channel('chat_{userId}', function () {
+Broadcast::channel('chat_{chatId}', function () {
     return true;
 });
