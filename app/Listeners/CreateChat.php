@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\CommentCreated;
+use App\Events\CommentCreating;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Models\Chat;
@@ -20,18 +20,15 @@ class CreateChat
     /**
      * Handle the event.
      */
-    public function handle(CommentCreated $event): void
+    public function handle(CommentCreating $event): void
     {
-        $chat = Chat::firstOrCreate(
-            [
-                'id' => $event->comment->chat_id
-            ],
+        $chat = Chat::create(
             [
                 'created_by_id' => $event->comment->user_id,
                 'service_id' => $event->comment->service_id
             ]
         );
-        
-        $event->comment->update(['chat_id' => $chat->id]);
+   
+        $event->comment->chat_id = $chat->id;
     }
 }
