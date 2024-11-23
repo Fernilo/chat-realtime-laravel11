@@ -17,7 +17,7 @@ class GotComment implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(public array $comment)
+    public function __construct(public array $chat)
     {
         //
     }
@@ -30,7 +30,7 @@ class GotComment implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('chat_'.$this->comment['chat_id'])
+            new PrivateChannel('chat_'.$this->chat['id'])
         ];
     }
 }

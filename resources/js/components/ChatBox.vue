@@ -10,7 +10,7 @@
           <span ref="scroll"></span>
         </div>
         <div class="card-footer">
-          <CommentInput :root-url="rootUrl" :service-id="service.id" :chat-id="chat?.id || null"/>
+          <CommentInput :root-url="rootUrl" :service-id="service.id" :chat-id="chat.id"/>
         </div>
       </div>
     </div>

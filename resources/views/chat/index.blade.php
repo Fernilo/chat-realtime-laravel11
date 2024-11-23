@@ -12,7 +12,7 @@
 				<div class="card-body">
 					<ul>
 						@foreach ($chats as $chat)
-							<li><a href="{{route('comments.index', [Auth::user()->id, $chat->service_id, $chat])}}">{{$chat->user->username .' - '. $chat->created_at }}</a></li>
+							<li><a href="{{route('comments.indexUserCreatorService', [Auth::user()->id, $chat->service_id, $chat])}}">{{$chat->user->username .' - '. $chat->created_at }}</a></li>
 						@endforeach
 					</ul>
 				</div>
