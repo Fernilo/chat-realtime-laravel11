@@ -46,6 +46,7 @@ class CommentController extends Controller
     public function comments(Request $request): JsonResponse
     {
        $comments =  Chat::where('created_by_id', $request->created_by_id)
+       ->where('service_id', $request->service_id)
             ->first()
             ->comments()
             ->with('user')

@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Events\GotComment;
+use App\Events\ProcessComment;
 use App\Models\Comment;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -27,7 +27,7 @@ class SendComment implements ShouldQueue
      */
     public function handle(): void
     {
-        GotComment::dispatch([
+        ProcessComment::dispatch([
             'id' => $this->comment->chat_id
         ]);
     }

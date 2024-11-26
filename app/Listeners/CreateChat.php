@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\ChatCreating;
-use App\Events\GotComment;
+use App\Events\ProcessComment;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Models\Chat;
@@ -30,7 +30,7 @@ class CreateChat
             ]
         );
 
-        GotComment::dispatch($chat->toArray());
+        ProcessComment::dispatch($chat->toArray());
    
         // $event->comment->chat_id = $chat->id;
     }

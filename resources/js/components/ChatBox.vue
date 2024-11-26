@@ -61,7 +61,8 @@ export default {
       try {
         const response = await axios.get(`${props.rootUrl}/comments`, {
           params: {
-            created_by_id: chat.created_by_id
+            created_by_id: chat.created_by_id,
+            service_id: chat.service_id
           },
         });
         comments.value = response.data;
@@ -72,7 +73,7 @@ export default {
     };
 
     const connectWebSocket = () => {
-      window.Echo.private(webSocketChannel).listen('GotComment', async () => {
+      window.Echo.private(webSocketChannel).listen('ProcessComment', async () => {
         await getComments();
       });
     };
